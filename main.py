@@ -1,8 +1,10 @@
 import time
 from store import Store
-store = Store('http://www.tiekart.com/')
+
+url = 'http://www.tiekart.com/'
+store = Store(url)
 categories = store.get_categories()
-print 'total categories', len(categories)
+print 'total categories', len(categories) , ' in ' + url
 time.sleep(5)
 for category in categories:
   if "name" in category:
@@ -12,4 +14,3 @@ for category in categories:
   time.sleep(3)
   for product in products:
   	print product
-  break
