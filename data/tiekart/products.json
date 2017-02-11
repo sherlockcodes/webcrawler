@@ -1,0 +1,19 @@
+{
+  "name": {
+    "type": "string"
+  },
+  "url": {
+    "type": "url"
+  },
+  "image":{
+  	"type":"url"
+  },
+  "products_section": {
+    "path": {
+      "class": {
+        "div": "product-block"
+      },
+      "multi_link":true
+    }
+  }
+}
