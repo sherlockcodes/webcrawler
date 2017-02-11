@@ -15,6 +15,7 @@ class Products():
 		self.load_config()
 
 	def load_config(self):
+		# config will be loaded from data/customer_website_name/products.json
 		self.config = {"name":{"type":"string","position":1},"url":{"type":"url","position":0},"image":{"type":"url","position":1},"products_section":{"path":{"class":{"div":"product-block"},"multi_link":True}}}
 		self.products_section_config = self.config["products_section"]
 		del self.config["products_section"]
@@ -25,11 +26,11 @@ class Products():
 		if products_section:
 			for product in products_section:
 				item = {}
-				if "multi_link" in self.products_section_config["path"]:
+				if "multi_link" in self.products_section_config["path"]: # if multi_link is set, every product block have multiple link section with image, href, and name
 					links = self.crawler.get_links(section=product)
 					for item_name, item_config in self.config.iteritems():
 						item_type = item_config["type"]
-						position = item_config["position"]
+						position = item_config["position"] # position in which link have title or alternate text
 						if item_type == "string" and len(links) >= position:
 							item[item_name] = self.crawler.get_item_value(links[position])
 						elif item_type == "url" and len(links) >= position:
@@ -52,7 +53,11 @@ class Products():
 				products.append(item)
 		return products
 
+	# private methods
 	def __get_products_section(self):
+		'''
+			private method to get products section.
+		'''
 		products_section = []
 		if "id" in self.products_section_config["path"]:
 			products_section = self.crawler.get_items_by_id(self.products_section_config["path"]["id"])

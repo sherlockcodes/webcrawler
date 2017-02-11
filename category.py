@@ -10,6 +10,7 @@ class Category():
 		self.load_config()
 
 	def load_config(self):
+		# config will be loaded from data/customer_website_name/category.json
 		self.config = {"name":{"type":"string"},"url":{"type":"url"},"main_menu":{"path":{"class":{"div":"collapse navbar-collapse navbar-ex1-collapse"}}}}
 		self.main_menu_config = self.config["main_menu"]
 		del self.config["main_menu"]
