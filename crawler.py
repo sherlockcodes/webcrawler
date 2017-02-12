@@ -70,4 +70,13 @@ class Crawler():
 		if section:
 			return section.findAll("a")
 		return []
+
+	def get_images(self, section):
+		if section:
+			return section.findAll("img")
+		return []
+
+	def get_item_image(self, item):
+		if item:
+			return item.get("src") or item.get("href")
 		

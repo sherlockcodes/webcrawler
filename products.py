@@ -16,7 +16,7 @@ class Products():
 
 	def load_config(self):
 		# config will be loaded from data/customer_website_name/products.json
-		self.config = {"name":{"type":"string","position":1},"url":{"type":"url","position":0},"image":{"type":"url","position":1},"products_section":{"path":{"class":{"div":"product-block"},"multi_link":True}}}
+		self.config = {"name":{"type":"string","position":1},"url":{"type":"url","position":0},"image":{"type":"image","position":0},"products_section":{"path":{"class":{"div":"product-block"},"multi_link":True}}}
 		self.products_section_config = self.config["products_section"]
 		del self.config["products_section"]
 
@@ -30,15 +30,21 @@ class Products():
 					links = self.crawler.get_links(section=product)
 					for item_name, item_config in self.config.iteritems():
 						item_type = item_config["type"]
-						position = item_config["position"] # position in which link have title or alternate text
-						if item_type == "string" and len(links) >= position:
+						item_class = item_config.get("class",None)
+						position = item_config.get("position",None) # position in which link have title or alternate text
+						if item_type == "string" and position and len(links) >= position:
 							item[item_name] = self.crawler.get_item_value(links[position])
-						elif item_type == "url" and len(links) >= position:
+						elif item_type == "url" and position and len(links) >= position:
 							product_url = self.crawler.get_item_link(links[position])
 							if product_url:
 								path = urlparse.urlparse(product_url).path
 								base_url = urlparse.urlparse(self.category_url).netloc
 								item[item_name] = base_url + path
+						elif item_type == "image" and position is not None and len(links) >= position:
+							images = self.crawler.get_images(links[position])
+							if images and len(images):
+								item[item_name] = self.crawler.get_item_image(images[0])
+								
 				else:
 					for item_name, item_config in self.config.iteritems():
 						item_type = item_config["type"]
