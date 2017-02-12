@@ -1,6 +1,13 @@
 Ecommerce products and category crawling:
 ========================================
 
+## prerequisites
+project requires requests library
+
+```
+pip install requests
+```
+
 ## how to run
 
 ```
