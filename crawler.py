@@ -20,7 +20,7 @@ class Crawler():
 		except requests.exceptions.Timeout:
 			print 'connection timed out'
 			sys.exit(1)
-		except requests.exceptions.RequestException as e::
+		except requests.exceptions.RequestException as e:
 			print 'something wrong with requests',e
 			sys.exit(1)
 		self.soup = BeautifulSoup(content)
