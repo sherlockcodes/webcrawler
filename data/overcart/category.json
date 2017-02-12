@@ -1,0 +1,15 @@
+{
+  "name": {
+    "type": "string"
+  },
+  "url": {
+    "type": "url"
+  },
+  "main_menu": {
+    "path": {
+      "class": {
+        "div": "nav-inner"
+      }
+    }
+  }
+}
